@@ -40,7 +40,8 @@
       "type": "enumeration",
       "enum": [
         "men",
-        "women"
+        "women",
+        "jewelery"
       ],
       "required": true
     }
