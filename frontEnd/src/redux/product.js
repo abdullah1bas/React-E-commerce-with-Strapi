@@ -9,12 +9,26 @@ export const productApi = createApi({
     baseUrl: `${import.meta.env.VITE_BASE_RENDER_URL}/api/`,
   }),
   endpoints: (builder) => ({
-    getproductByName: builder.query({
+    getproductsByName: builder.query({
       query: (name) => `${name}`,
     }),
   }),
 });
 
+// // Get only onr product
+// export const oneproductsApi = createApi({
+//   reducerPath: "oneproductsApi",
+//   baseQuery: fetchBaseQuery({
+//     baseUrl: "http://localhost:9000/",
+//   }),
+//   endpoints: (builder) => ({
+//     getOneProduct: builder.query({
+//       query: (name) => `products/${name}`,
+//     }),
+//   }),
+// });
+
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetproductByNameQuery } = productApi;
+export const { useGetproductsByNameQuery } = productApi;
+// export const { useGetOneProductQuery } = oneproductsApi;

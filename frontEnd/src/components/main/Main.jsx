@@ -10,7 +10,7 @@ import { useState } from "react";
 
 import { Close } from "@mui/icons-material";
 import ProductDetails from "./ProductDetails";
-import { useGetproductByNameQuery } from "../../redux/product";
+import { useGetproductsByNameQuery } from "../../redux/product";
 import MainHeader from "./MainHeader";
 import MainProducts from "./MainProducts";
 
@@ -40,7 +40,7 @@ const Main = () => {
     "products?populate=*&filters[category][$eq]=jewelery";
 
   const [myDate, setmyDate] = useState(allProductsAPI);
-  const { data, error, isLoading } = useGetproductByNameQuery(myDate);
+  const { data, error, isLoading } = useGetproductsByNameQuery(myDate);
   const [clickedProduct, setclickedProduct] = useState({});
 
   // console.log(data.data)
