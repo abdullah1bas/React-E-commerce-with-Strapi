@@ -3,11 +3,10 @@ import {
   Add,
   Close,
   Remove,
-  ShoppingBagOutlined,
 } from "@mui/icons-material";
 import {
   Badge,
-  Button,
+  Box,
   Divider,
   IconButton,
   Stack,
@@ -15,15 +14,23 @@ import {
   styled,
   useTheme,
 } from "@mui/material";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decreaseQuantity,
   deleteProduct,
   increaseQuantity,
 } from "../../../redux/cartSlice";
-// import Button from '@mui/material/Button';
+import Swal from "sweetalert2";
+import './headerC.css'
+
+
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: true
+})
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -37,61 +44,25 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-// eslint-disable-next-line react/prop-types
-const DrawerCartList = ({ state, toggleDrawer }) => {
+const ProductSelectedList = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   // eslint-disable-next-line react/prop-types
   const { selectedProducts } = useSelector((state) => state.cart);
 
-  console.log(selectedProducts);
-
-  let Subtotal = 0;
-  const list = () => (
-    <Box sx={{ width: 400, height: "100vh" }} role="presentation">
-      <Stack
-        p={2}
-        direction={"row"}
-        alignItems={"center"}
-        justifyContent={"space-between"}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            color:
-              theme.palette.mode == "light"
-                ? "rgb(15, 52, 96)"
-                : theme.palette.info.main,
-          }}
-        >
-          <ShoppingBagOutlined fontSize="large" />
-          <Typography sx={{ fontSize: 17 }}>
-            {selectedProducts.length} Item
-          </Typography>
-        </Box>
-        <IconButton aria-label="delete" size="meduim" onClick={toggleDrawer(false)}>
-          <Close fontSize={"meduim"} />
-        </IconButton>
-      </Stack>
-      <Divider light />
-
-      <Box sx={{ minHeight: "600px", overFlow: "auto" }}>
+  return (
+    <Box sx={{ minHeight: "600px", overFlow: "auto" }}>
         {selectedProducts.map((item) => {
-          // console.log(item);
-          Subtotal += Number(item.productPrice) * Number(item.quantity);
           return (
-            <>
+            <Box key={item.id}>
               <Stack
-                key={item.id}
+                
                 gap={2}
                 width={"100%"}
                 direction={"row"}
                 alignItems={"center"}
                 py={2}
-                px={1}
-              >
+                px={1}>
                 <Stack
                   sx={{
                     width: 32,
@@ -118,6 +89,7 @@ const DrawerCartList = ({ state, toggleDrawer }) => {
                     onClick={() => {
                       dispatch(decreaseQuantity(item));
                     }}
+                    disabled={item.quantity <= 1 && true}
                   >
                     <Remove />
                   </IconButton>
@@ -174,82 +146,52 @@ const DrawerCartList = ({ state, toggleDrawer }) => {
                   </Typography>
                 </Stack>
 
-                <div>
+                <Box>
                   <IconButton
                     aria-label="delete"
                     size="medium"
-                    onClick={deleteProduct(item)}
+                    onClick={ () =>
+                      {swalWithBootstrapButtons.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          swalWithBootstrapButtons.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                            )
+                            deleteProduct(item)
+                        } else if (
+                          /* Read more about handling dismissals below */
+                          result.dismiss === Swal.DismissReason.cancel
+                        ) {
+                          swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            'Your imaginary file is safe :)',
+                            'error'
+                          )
+                        }
+                      })}
+                      
+                    }
                   >
                     <Close fontSize={"small"} />
                   </IconButton>
-                </div>
+                </Box>
 
               </Stack>
               <Divider light />
-            </>
-          );
+            </Box>
+          )
         })}
       </Box>
-
-      <Stack
-        p={2}
-        direction={"column"}
-        alignItems={"center"}
-        gap={2}
-        mt={"auto"}
-      >
-        <Button
-          variant="contained"
-          sx={{
-            width: "100%",
-            m: "auto",
-            textTransform: 'capitalize',
-            backgroundColor:
-              theme.palette.mode == "light" && theme.palette.error.main,
-            ":hover": {
-              backgroundColor:
-                theme.palette.mode == "light" && theme.palette.error.dark,
-            },
-          }}
-        >
-          Checkout Now (${Subtotal.toFixed(2)})
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{
-            width: "100%",
-            m: "auto",
-            textTransform: 'capitalize',
-            border:
-              theme.palette.mode == "light" &&
-              `1px solid ${theme.palette.error.light}`,
-            color: theme.palette.mode == "light" && theme.palette.error.main,
-            backgroundColor:
-              theme.palette.mode == "light" && theme.palette.common.white,
-            ":hover": {
-              backgroundColor:
-                theme.palette.mode == "light" && "rgba(210, 63, 87, 0.04)",
-              border:
-                theme.palette.mode == "light" &&
-                `1px solid ${theme.palette.error.dark}`,
-            },
-          }}
-        >
-          View Cart
-        </Button>
-      </Stack>
-    </Box>
   );
-  return (
-    <Drawer
-      anchor={"right"}
-      // @ts-ignore
-      open={state}
-      onClose={toggleDrawer(false)}
-    >
-      {list()}
-    </Drawer>
-  );
-};
+}
 
-export default DrawerCartList;
+export default ProductSelectedList;
