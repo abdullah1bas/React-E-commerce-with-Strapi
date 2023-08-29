@@ -26,8 +26,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
       theme.palette.mode == "light"
         ? theme.palette.common.black
         : theme.palette.common.white,
-    fontSize: {xs:"14px",sm:"18px"},
-    marginTop: {xs:'5px',sm:"10px"},
+    fontSize: "18px",
   },
 }));
 
@@ -38,16 +37,22 @@ const ProductSelectedList = () => {
   const { selectedProducts } = useSelector((state) => state.cart);
 
   return (
-    <Box sx={{ maxHeight: "600px", minHeight: {xs: '520px',sm:"600px"}, overflow: "auto" }}>
+    <Box
+      sx={{
+        maxHeight: "600px",
+        minHeight: { xs: "520px", sm: "600px" },
+        overflow: "auto",
+      }}
+    >
       {selectedProducts.map((item) => {
         return (
           <Box key={item.id}>
             <Stack
-              gap={{xs: 1, sm: 2}}
+              gap={{ xs: 1, sm: 2 }}
               width={"100%"}
               direction={"row"}
               alignItems={"center"}
-              py={{xs: 1, sm: 2}}
+              py={{ xs: 1, sm: 2 }}
               px={1}
             >
               <Stack
@@ -57,12 +62,14 @@ const ProductSelectedList = () => {
                   alignItems: "center",
                   flexDirection: "column",
                   justifyContent: "space-between",
-                  gap: {xs:2, sm: 3},
+                  gap: { xs: 2, sm: 3 },
                 }}
               >
                 <IconButton
-                size="small"
-                  sx={{ color: theme.palette.info.main, margin: {xs:0,sm:"-10px"} }}
+                  size="small"
+                  sx={{
+                    color: theme.palette.info.main,
+                  }}
                   onClick={() => {
                     dispatch(increaseQuantity(item));
                   }}
@@ -73,8 +80,10 @@ const ProductSelectedList = () => {
                 <StyledBadge badgeContent={item.quantity} color="secondary" />
 
                 <IconButton
-                size="small"
-                  sx={{ color: theme.palette.info.main, mt: {xs:0,sm:"10px"} }}
+                  size="small"
+                  sx={{
+                    color: theme.palette.info.main,
+                  }}
                   onClick={() => {
                     dispatch(decreaseQuantity(item));
                   }}
@@ -84,7 +93,12 @@ const ProductSelectedList = () => {
                 </IconButton>
               </Stack>
 
-              <Box sx={{ width: {xs:'86px',sm:"110px"}, height: {xs:'86px',sm:"110px"} }}>
+              <Box
+                sx={{
+                  width: { xs: "86px", sm: "110px" },
+                  height: { xs: "86px", sm: "110px" },
+                }}
+              >
                 <img
                   src={item.productImg.data[0].attributes.url}
                   width={"100%"}
@@ -94,7 +108,7 @@ const ProductSelectedList = () => {
 
               <Stack
                 direction={"column"}
-                sx={{ width: "150px", flexGrow: 1, gap: {xs:1, sm: 2} }}
+                sx={{ width: "150px", flexGrow: 1, gap: { xs: 1, sm: 2 } }}
               >
                 <Typography
                   sx={{
@@ -102,7 +116,7 @@ const ProductSelectedList = () => {
                       theme.palette.mode == "light"
                         ? theme.palette.common.black
                         : theme.palette.common.white,
-                    fontSize: {xs: 13, sm: 16},
+                    fontSize: { xs: 13, sm: 16 },
                   }}
                 >
                   {item.productTitle.length <= 18
@@ -112,7 +126,7 @@ const ProductSelectedList = () => {
 
                 <Typography
                   sx={{
-                    fontSize: {xs: 11, sm: 14},
+                    fontSize: { xs: 11, sm: 14 },
                     color:
                       theme.palette.mode == "light"
                         ? "rgb(125, 135, 156)"
@@ -124,7 +138,7 @@ const ProductSelectedList = () => {
 
                 <Typography
                   sx={{
-                    fontSize: {xs: 13, sm: 16},
+                    fontSize: { xs: 13, sm: 16 },
                     height: "100%",
                     color: theme.palette.error.main,
                   }}
