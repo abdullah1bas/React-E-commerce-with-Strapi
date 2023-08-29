@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 const MainHeader = ({
   myDate,
@@ -10,13 +11,14 @@ const MainHeader = ({
   menCategoryAPI,
   womenCategoryAPI,
   jeweleryCategoryAPI,
+  electronicCategoryAPI,
 }) => {
   const theme = useTheme();
   return (
     <Stack
       direction={"row"}
       alignItems={"center"}
-      justifyContent={"space-between"}
+      justifyContent={{xs: 'center', sm: "space-between"}}
       flexWrap={"wrap"}
       gap={3}
     >
@@ -54,22 +56,35 @@ const MainHeader = ({
             name: "Jewelery Category",
             value: jeweleryCategoryAPI,
           },
+          {
+            aria: "right aligned",
+            name: "Electronics Category",
+            value: electronicCategoryAPI,
+          },
         ].map((item) => {
           return (
             <ToggleButton
               key={item.name}
               sx={{
-                mr: item.name != "Jewelery Category" ? {xs:'10px !important', sm:"16px !important"} : null,
+                mr:
+                  item.name != "Electronics Category"
+                    ? { xs: "10px !important", sm: "16px !important" }
+                    : null,
                 color: theme.palette.text.primary,
                 border: `1px solid ${theme.palette.divider} !important`,
-                textTransform: 'capitalize',
-                fontSize: {xs:'12px', sm: '0.875rem'},
+                textTransform: "capitalize",
+                // fontSize: { xs: "10px", sm: "0.875rem" },
+                fontSize: "0.875rem" ,
+                px: {xs: '10px !important', sm: '11px !important'}
+                // '.css-1uqdoiu-MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped' :{
+                // },
               }}
               className="myButton"
               value={item.value}
               aria-label={item.aria}
             >
-              {item.name}
+              {useMediaQuery("(min-width:500px)") && item.name}
+              {useMediaQuery("(max-width:500px)") && item.name.split(' ')[0]}
             </ToggleButton>
           );
         })}

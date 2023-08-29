@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Rating, Stack, Typography } from "@mui/material";
+import { Box, Button, Rating, Stack, Tooltip, Typography } from "@mui/material";
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -45,7 +45,7 @@ const MainProducts = ({ data, setClickedProduct, handleClickOpen }) => {
                   sx={{ height: 277, backgroundSize: "contain" }}
                   // @ts-ignore
                   image={item.attributes.productImg.data[0].attributes.url}
-                  title="green iguana"
+                  title={item.attributes.productTitle}
                 />
               </Box>
 
@@ -74,22 +74,24 @@ const MainProducts = ({ data, setClickedProduct, handleClickOpen }) => {
               </CardContent>
 
               <CardActions sx={{ justifyContent: "space-between" }}>
-                <Button
-                  onClick={() => {
-                    handleClickOpen();
-                    setClickedProduct(item);
-                  }}
-                  sx={{ textTransform: "capitalize" }}
-                  size="large"
-                >
-                  {selectedProductsID.some((id) => id == item.id) && (
-                    <AddShoppingCartOutlinedIcon
-                      sx={{ mr: 1 }}
-                      fontSize="small"
-                    />
-                  )}
-                  Show Details
-                </Button>
+                <Tooltip title='Details Product'>
+                  <Button
+                    onClick={() => {
+                      handleClickOpen();
+                      setClickedProduct(item);
+                    }}
+                    sx={{ textTransform: "capitalize" }}
+                    size="large"
+                  >
+                    {selectedProductsID.some((id) => id == item.id) && (
+                      <AddShoppingCartOutlinedIcon
+                        sx={{ mr: 1 }}
+                        fontSize="small"
+                      />
+                    )}
+                    Show Details
+                  </Button>
+                </Tooltip>
                 <Rating
                   // da y3ne b2olo an y7ot al value lw kan 3ashre
                   precision={0.1}

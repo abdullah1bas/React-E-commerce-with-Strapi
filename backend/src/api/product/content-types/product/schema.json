@@ -41,7 +41,8 @@
       "enum": [
         "men",
         "women",
-        "jewelery"
+        "jewelery",
+        "electronics"
       ],
       "required": true
     }

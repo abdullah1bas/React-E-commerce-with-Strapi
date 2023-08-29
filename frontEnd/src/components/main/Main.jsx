@@ -38,6 +38,8 @@ const Main = () => {
   const womenCategoryAPI = "products?populate=*&filters[category][$eq]=women";
   const jeweleryCategoryAPI =
     "products?populate=*&filters[category][$eq]=jewelery";
+  const electronicCategoryAPI =
+    "products?populate=*&filters[category][$eq]=electronics";
 
   const [myDate, setmyDate] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductsByNameQuery(myDate);
@@ -84,6 +86,7 @@ const Main = () => {
             menCategoryAPI,
             womenCategoryAPI,
             jeweleryCategoryAPI,
+            electronicCategoryAPI,
           }}
         />
 
