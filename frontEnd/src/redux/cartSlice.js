@@ -17,7 +17,11 @@ export const counterSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       // action.payload => product From API => القيمة التى بداخل الاقواس
-      const productWithQuantity = { ...action.payload, quantity: 1 };
+      const productWithQuantity = {
+        ...action.payload.attributes,
+        id: action.payload.id,
+        quantity: 1,
+      };
       state.selectedProducts.push(productWithQuantity);
       state.selectedProductsID.push(action.payload.id);
 
@@ -32,7 +36,7 @@ export const counterSlice = createSlice({
     },
 
     increaseQuantity: (state, action) => {
-      // action.payload => product From user
+      // action.payload => product From user, we dh b2a obj selected
       const incresdedProuct = state.selectedProducts.find((item) => {
         return item.id === action.payload.id;
       });
@@ -47,12 +51,12 @@ export const counterSlice = createSlice({
 
     decreaseQuantity: (state, action) => {
       // action.payload => product From user
-      const incresdedProuct = state.selectedProducts.find((item) => {
+      const decreaseProduct = state.selectedProducts.find((item) => {
         return item.id === action.payload.id;
       });
 
-      incresdedProuct.quantity -= 1;
-      if (incresdedProuct.quantity === 0) {
+      decreaseProduct.quantity -= 1;
+      if (decreaseProduct.quantity === 0) {
         // delete the selected product
         const newArr = state.selectedProducts.filter((item) => {
           return item.id !== action.payload.id;

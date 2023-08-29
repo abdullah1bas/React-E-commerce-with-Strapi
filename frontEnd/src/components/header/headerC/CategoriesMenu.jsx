@@ -2,6 +2,7 @@ import {
   Box,
   ListItemIcon,
   ListItemText,
+  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -34,34 +35,36 @@ const CategoriesMenu = () => {
   return (
     <Box>
 
-        <Button
-          id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-          sx={{
-            width: 222,
-            // @ts-ignore
-            bgcolor: theme.palette.myColor.main,
-
-            color: theme.palette.text.secondary,
-          }}
-        >
-          <WindowIcon />
-          <Typography
+        <Tooltip title='Categories Menu'>
+          <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
             sx={{
-              padding: "0",
-              textTransform: "capitalize",
-              mx: 1,
+              width: 222,
+              // @ts-ignore
+              bgcolor: theme.palette.myColor.main,
+          
+              color: theme.palette.text.secondary,
             }}
           >
-            Categories
-          </Typography>
-          <Box flexGrow={1} />
-
-          <KeyboardArrowRightOutlinedIcon />
-        </Button>
+            <WindowIcon />
+            <Typography
+              sx={{
+                padding: "0",
+                textTransform: "capitalize",
+                mx: 1,
+              }}
+            >
+              Categories
+            </Typography>
+            <Box flexGrow={1} />
+          
+            <KeyboardArrowRightOutlinedIcon />
+          </Button>
+        </Tooltip>
 
         <Menu
           id="basic-menu"

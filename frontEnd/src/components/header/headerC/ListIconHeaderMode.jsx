@@ -6,6 +6,7 @@ import {
   ListItemText,
   Menu,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
 import { ExpandMore, Facebook, Instagram, Twitter } from "@mui/icons-material";
 import ModeIcon from "./ModeIcon";
@@ -32,6 +33,7 @@ const ListIconHeaderMode = () => {
   // const navigate = useNavigate();
   return (
     <>
+    
       <ModeIcon />
 
       <List component="nav" aria-label="Device settings" sx={{ p: 0, m: 0 }}>
@@ -76,30 +78,36 @@ const ListIconHeaderMode = () => {
         ))}
       </Menu>
 
-      <IconButton href="https://www.twitter.com/">
-          <Twitter
+      <Tooltip title='Twitter'>
+        <IconButton href="https://www.twitter.com/">
+            <Twitter
+              sx={{
+                fontSize: "16px",
+                color: "#fff",
+              }}
+            />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title='Facebook'>
+        <IconButton href="https://www.facebook.com/">
+          <Facebook
             sx={{
               fontSize: "16px",
               color: "#fff",
             }}
           />
-      </IconButton>
-      <IconButton href="https://www.facebook.com/">
-        <Facebook
-          sx={{
-            fontSize: "16px",
-            color: "#fff",
-          }}
-        />
-      </IconButton>
-      <IconButton href="https://www.instagram.com/">
-        <Instagram
-          sx={{
-            fontSize: "16px",
-            color: "#fff",
-          }}
-        />
-      </IconButton>
+        </IconButton>
+      </Tooltip>
+      <Tooltip title='Instagram'>
+        <IconButton href="https://www.instagram.com/">
+          <Instagram
+            sx={{
+              fontSize: "16px",
+              color: "#fff",
+            }}
+          />
+        </IconButton>
+      </Tooltip>
     </>
   );
 };

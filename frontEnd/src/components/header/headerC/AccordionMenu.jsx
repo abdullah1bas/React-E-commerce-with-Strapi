@@ -25,7 +25,7 @@ const AccordionMenu = () => {
   return (
     <>
     {useMediaQuery("(min-width:992px)") && (
-        <Stack gap={2} direction={"row"} alignItems={"center"}>
+        <Stack mb={'10px'} gap={2} direction={"row"} alignItems={"center"}>
           <Links title={"Home"} />
           <Links title={"Mega Menu"} />
           <Links title={"Full Screen Menu"} />

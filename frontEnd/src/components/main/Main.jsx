@@ -41,9 +41,9 @@ const Main = () => {
 
   const [myDate, setmyDate] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductsByNameQuery(myDate);
-  const [clickedProduct, setclickedProduct] = useState({});
+  const [clickedProduct, setClickedProduct] = useState({});
 
-  // console.log(data.data)
+  // console.log(clickedProduct)
 
   if (isLoading) {
     return (
@@ -87,7 +87,7 @@ const Main = () => {
           }}
         />
 
-        <MainProducts {...{ data, setclickedProduct, handleClickOpen }} />
+        <MainProducts {...{ data, setClickedProduct, handleClickOpen }} />
 
         {/* anyWhere */}
         <Dialog

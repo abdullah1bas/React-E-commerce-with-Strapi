@@ -59,10 +59,11 @@ const MainHeader = ({
             <ToggleButton
               key={item.name}
               sx={{
-                mr: item.name != "Jewelery Category" ? "16px !important" : null,
+                mr: item.name != "Jewelery Category" ? {xs:'10px !important', sm:"16px !important"} : null,
                 color: theme.palette.text.primary,
                 border: `1px solid ${theme.palette.divider} !important`,
                 textTransform: 'capitalize',
+                fontSize: {xs:'12px', sm: '0.875rem'},
               }}
               className="myButton"
               value={item.value}

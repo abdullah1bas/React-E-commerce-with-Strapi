@@ -1,6 +1,7 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 
 const Footer = () => {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -14,15 +15,15 @@ const Footer = () => {
         justifyContent={"center"}
         display={"flex"}
         alignItems={"center"}
-        color={"HighlightText"}
+        color={theme.palette.common.white}
         variant="h6"
-        sx={{ fontSize: 18 }}
+        sx={{ fontSize: {xs:13, sm: 18} }}
       >
         Designed and developed by
         <Button
           sx={{
             mx: 0.5,
-            fontSize: "18px",
+            fontSize: {xs:13, sm: 18},
             textTransform: "capitalize",
             color: "#ff7790",
           }}

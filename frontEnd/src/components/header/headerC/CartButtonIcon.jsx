@@ -65,7 +65,7 @@ const CartButtonIcon = () => {
         open={state}
         onClose={toggleDrawer(false)}
       >
-        <Box sx={{ width: 400, height: "100vh" }} role="presentation">
+        <Box sx={{ width: {xs: 300, sm: 400}, height: "100vh" }} role="presentation">
           <Stack
             p={2}
             direction={"row"}
@@ -83,8 +83,8 @@ const CartButtonIcon = () => {
                     : theme.palette.info.main,
               }}
             >
-              <ShoppingBagOutlined fontSize="large" />
-              <Typography sx={{ fontSize: 17 }}>
+              <ShoppingBagOutlined fontSize="large" sx={{fontSize: {xs: 30, sm: '2.1875rem'},}} />
+              <Typography sx={{ fontSize: {xs: 13, sm: 17} }}>
                 {selectedProducts.length} Item
               </Typography>
             </Box>
@@ -122,6 +122,7 @@ const CartButtonIcon = () => {
                     theme.palette.mode == "light" && theme.palette.error.dark,
                 },
               }}
+              onClick={toggleDrawer(false)}
             >
               Checkout Now (${subtotal.toFixed(2)})
             </Button>
@@ -146,6 +147,7 @@ const CartButtonIcon = () => {
                     `1px solid ${theme.palette.error.dark}`,
                 },
               }}
+              onClick={toggleDrawer(false)}
             >
               View Cart
             </Button>
