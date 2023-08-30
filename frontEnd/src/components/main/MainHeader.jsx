@@ -34,7 +34,7 @@ const MainHeader = ({
       <ToggleButtonGroup
         color="error"
         // da al value bta3 al parent we lma value child === y7ot 3la al value select
-        value={myDate}
+        value={t(myDate)}
         exclusive
         onChange={handleAlignment}
         aria-label="text alignment"
@@ -67,10 +67,10 @@ const MainHeader = ({
         ].map((item) => {
           return (
             <ToggleButton
-              key={item.name}
+              key={t(item.name)}
               sx={{
                 mr:
-                  item.name != "Electronics Category"
+                  t(item.name) != "Electronics Category"
                     ? { xs: "10px !important", sm: "16px !important" }
                     : null,
                 color: theme.palette.text.primary,
