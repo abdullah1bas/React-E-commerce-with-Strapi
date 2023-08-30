@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // @ts-nocheck
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
@@ -55,7 +56,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const options = ["All Categories", "Men", "Women", "Electronics", "Jewelery"];
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
-const SearchSelect = () => {
+const SearchSelect = ({
+  setmyDate,
+  allProductsAPI,
+  menCategoryAPI,
+  womenCategoryAPI,
+  jeweleryCategoryAPI,
+  electronicCategoryAPI,
+}) => {
   const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -73,6 +81,8 @@ const SearchSelect = () => {
     setAnchorEl(null);
   };
 
+  
+
   const theme = useTheme();
   return (
     <>
@@ -89,6 +99,7 @@ const SearchSelect = () => {
         <StyledInputBase
           placeholder={t("Search…")}
           inputProps={{ "aria-label": "search" }}
+          sx={{ flexGrow: 1 }}
         />
 
         <div>
@@ -102,13 +113,17 @@ const SearchSelect = () => {
               borderTopRightRadius: 22,
               p: "0",
               width:
-                i18n.language || localStorage.getItem('langaugeSite') == "FR"
-                  ? 165
-                  : i18n.language || localStorage.getItem('langaugeSite') == "CHI"
-                  ? 190
-                  : i18n.language || localStorage.getItem('langaugeSite') == "RUS"
-                  ? 190
+                localStorage.getItem("langaugeSite") == "FR" ||
+                i18n.language == "FR"
+                  ? "165px !important"
+                  : localStorage.getItem("langaugeSite") == "CHI" ||
+                    i18n.language == "CHI"
+                  ? "190px !important"
+                  : localStorage.getItem("langaugeSite") == "RUS" ||
+                    i18n.language == "RUS"
+                  ? "190px !important"
                   : null,
+              "&:hover": { cursor: "pointer" },
             }}
           >
             <ListItem
@@ -123,7 +138,6 @@ const SearchSelect = () => {
                 sx={{
                   width: 93,
                   textAlign: "center",
-                  "&:hover": { cursor: "pointer" },
                 }}
                 secondary={t(options[selectedIndex])}
               />
@@ -145,7 +159,14 @@ const SearchSelect = () => {
                 sx={{ fontSize: "13px" }}
                 key={option}
                 selected={index === selectedIndex}
-                onClick={(event) => handleMenuItemClick(event, index)}
+                onClick={(event) => {
+                  handleMenuItemClick(event, index)
+                  option == "Men" ? setmyDate(menCategoryAPI)
+                  : option == "Women" ? setmyDate(womenCategoryAPI)
+                  : option == "Electronics" ? setmyDate(electronicCategoryAPI)
+                  : option == "Jewelery" ? setmyDate(jeweleryCategoryAPI)
+                  : setmyDate(allProductsAPI)
+                }}
               >
                 {t(option)}
               </MenuItem>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   ListItemIcon,
@@ -14,14 +15,20 @@ import MenuItem from "@mui/material/MenuItem";
 import WindowIcon from "@mui/icons-material/Window";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import {
-  SportsEsportsOutlined,
-  ElectricBikeOutlined,
   LaptopChromebookOutlined,
-  MenuBookOutlined,
+  Female,
+  Male,
+  Diamond,
 } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 
-const CategoriesMenu = () => {
+const CategoriesMenu = ({
+  setmyDate,
+  menCategoryAPI,
+  womenCategoryAPI,
+  jeweleryCategoryAPI,
+  electronicCategoryAPI,
+}) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -83,17 +90,32 @@ const CategoriesMenu = () => {
         }}
       >
         {[
-          { text: "Bikes", icon: <ElectricBikeOutlined fontSize="small" /> },
+          { text: "Men", icon: <Male fontSize="small" /> },
+          {
+            text: "Women",
+            icon: <Female fontSize="small" />,
+          },
           {
             text: "Electronics",
             icon: <LaptopChromebookOutlined fontSize="small" />,
           },
-          { text: "Books", icon: <MenuBookOutlined fontSize="small" /> },
-          { text: "Games", icon: <SportsEsportsOutlined fontSize="small" /> },
+          { text: "Jewelery", icon: <Diamond fontSize="small" /> },
         ].map((item) => {
           return (
             // eslint-disable-next-line react/jsx-key
-            <MenuItem key={item.text} onClick={handleClose}>
+            <MenuItem
+              key={item.text}
+              onClick={() => {
+                handleClose();
+                 item.text == "Women"
+                  ? setmyDate(womenCategoryAPI)
+                  : item.text == "Electronics"
+                  ? setmyDate(electronicCategoryAPI)
+                  : item.text == "Jewelery"
+                  ? setmyDate(jeweleryCategoryAPI)
+                  : setmyDate(menCategoryAPI);
+              }}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
 
               <ListItemText>{t(item.text)}</ListItemText>

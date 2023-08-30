@@ -1,10 +1,16 @@
-
+/* eslint-disable react/prop-types */
 
 import { Container } from "@mui/material";
 import AccordionMenu from "./headerC/AccordionMenu";
 import CategoriesMenu from "./headerC/CategoriesMenu";
 
-const HeaderCategories = () => {
+const HeaderCategories = ({
+  setmyDate,
+  menCategoryAPI,
+  womenCategoryAPI,
+  jeweleryCategoryAPI,
+  electronicCategoryAPI,
+}) => {
   return (
     <Container
       sx={{
@@ -14,13 +20,19 @@ const HeaderCategories = () => {
         mt: 3,
       }}
     >
-      
-      <CategoriesMenu />
+      <CategoriesMenu
+        {...{
+          setmyDate,
+          menCategoryAPI,
+          womenCategoryAPI,
+          jeweleryCategoryAPI,
+          electronicCategoryAPI,
+        }}
+      />
 
       <AccordionMenu />
-
     </Container>
   );
-}
+};
 
 export default HeaderCategories;

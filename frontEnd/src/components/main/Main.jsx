@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   CircularProgress,
@@ -14,13 +15,15 @@ import { useGetproductsByNameQuery } from "../../redux/product";
 import MainHeader from "./MainHeader";
 import MainProducts from "./MainProducts";
 
-const Main = () => {
-  const handleAlignment = (event, newValue) => {
-    if (newValue !== null) {
-      setmyDate(newValue);
-    }
-  };
-
+const Main = ({
+  handleAlignment,
+  allProductsAPI,
+  menCategoryAPI,
+  womenCategoryAPI,
+  jeweleryCategoryAPI,
+  electronicCategoryAPI,
+  myDate,
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -31,21 +34,8 @@ const Main = () => {
     setOpen(false);
   };
 
-  const allProductsAPI = "products?populate=*";
-  // &(And), filters[category][$eq]=men rg3le
-  // [obj.key(category)][$eq(== equal)]=value(men)
-  const menCategoryAPI = "products?populate=*&filters[category][$eq]=men";
-  const womenCategoryAPI = "products?populate=*&filters[category][$eq]=women";
-  const jeweleryCategoryAPI =
-    "products?populate=*&filters[category][$eq]=jewelery";
-  const electronicCategoryAPI =
-    "products?populate=*&filters[category][$eq]=electronics";
-
-  const [myDate, setmyDate] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductsByNameQuery(myDate);
   const [clickedProduct, setClickedProduct] = useState({});
-
-  // console.log(clickedProduct)
 
   if (isLoading) {
     return (
@@ -112,7 +102,7 @@ const Main = () => {
             <Close />
           </IconButton>
 
-          <ProductDetails {...{clickedProduct}} />
+          <ProductDetails {...{ clickedProduct }} />
         </Dialog>
       </Container>
     );

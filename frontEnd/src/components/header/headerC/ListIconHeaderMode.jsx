@@ -66,7 +66,7 @@ const ListIconHeaderMode = () => {
       .init({
         fallbackLng: localStorage.getItem('langaugeSite'), 
       })
-      document.documentElement.lang = localStorage.getItem('langaugeSite');
+      document.documentElement.lang = localStorage.getItem('langaugeSite').toLowerCase();
       setSelectedIndex(options.indexOf(localStorage.getItem('langaugeSite')))
     }
   },[])
@@ -75,25 +75,27 @@ const ListIconHeaderMode = () => {
     <>
       <ModeIcon />
 
-      <List component="nav" aria-label="Device settings" sx={{ p: 0, m: 0 }}>
-        <ListItem
-          id="lock-button"
-          aria-haspopup="listbox"
-          aria-controls="lock-menu"
-          aria-label="when device is locked"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClickListItem}
-          sx={{ "&:hover": { cursor: "pointer" }, px: 1 }}
-        >
-          <ListItemText
-            sx={{
-              ".MuiTypography-root": { fontSize: "11px", color: "#fff" },
-            }}
-            secondary={options[selectedIndex]}
-          />
-          <ExpandMore sx={{ fontSize: "16px", color: "#fff" }} />
-        </ListItem>
-      </List>
+      <Tooltip title='Transilation Lang'>
+        <List component="nav" aria-label="Device settings" sx={{ p: 0, m: 0 }}>
+          <ListItem
+            id="lock-button"
+            aria-haspopup="listbox"
+            aria-controls="lock-menu"
+            aria-label="when device is locked"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClickListItem}
+            sx={{ "&:hover": { cursor: "pointer" }, px: 1 }}
+          >
+            <ListItemText
+              sx={{
+                ".MuiTypography-root": { fontSize: "11px", color: "#fff" },
+              }}
+              secondary={options[selectedIndex]}
+            />
+            <ExpandMore sx={{ fontSize: "16px", color: "#fff" }} />
+          </ListItem>
+        </List>
+      </Tooltip>
 
       <Menu
         id="lock-menu"
