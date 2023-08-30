@@ -16,6 +16,7 @@ import {
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import ProductSelectedList from "./ProductSelectedList";
+import { useTranslation } from "react-i18next";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -26,8 +27,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-// eslint-disable-next-line react/prop-types
 const CartButtonIcon = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   // eslint-disable-next-line react/prop-types
   const { selectedProducts } = useSelector((state) => state.cart);
@@ -51,7 +52,7 @@ const CartButtonIcon = () => {
   );
   return (
     <>
-      <Tooltip title="Shopping Cart">
+      <Tooltip title={t("Shopping Cart")}>
         <IconButton aria-label="cart" onClick={toggleDrawer(true)}>
           <StyledBadge badgeContent={selectedProducts.length} color="primary">
             <ShoppingCart />
@@ -85,7 +86,7 @@ const CartButtonIcon = () => {
             >
               <ShoppingBagOutlined fontSize="large" sx={{fontSize: {xs: 30, sm: '2.1875rem'},}} />
               <Typography sx={{ fontSize: {xs: 13, sm: 17} }}>
-                {selectedProducts.length} Item
+                {selectedProducts.length} {t('Item')}
               </Typography>
             </Box>
 
@@ -124,7 +125,7 @@ const CartButtonIcon = () => {
               }}
               onClick={toggleDrawer(false)}
             >
-              Checkout Now (${subtotal.toFixed(2)})
+              {t('Checkout Now')} (${subtotal.toFixed(2)})
             </Button>
             <Button
               variant="outlined"
@@ -149,7 +150,7 @@ const CartButtonIcon = () => {
               }}
               onClick={toggleDrawer(false)}
             >
-              View Cart
+              {t('View Cart')}
             </Button>
           </Stack>
         </Box>

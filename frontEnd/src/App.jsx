@@ -12,6 +12,10 @@ import ScrollToTop from "./components/scroll/ScrollToTop";
 import { Provider } from 'react-redux'
 import { store } from "./redux/store";
 
+
+
+
+
 function App() {
   const [theme, colorMode] = useMode();
   

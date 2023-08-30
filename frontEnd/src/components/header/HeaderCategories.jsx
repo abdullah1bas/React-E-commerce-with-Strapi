@@ -5,7 +5,6 @@ import AccordionMenu from "./headerC/AccordionMenu";
 import CategoriesMenu from "./headerC/CategoriesMenu";
 
 const HeaderCategories = () => {
-  
   return (
     <Container
       sx={{

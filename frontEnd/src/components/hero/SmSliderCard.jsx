@@ -1,8 +1,11 @@
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box, Link, Stack, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 // eslint-disable-next-line react/prop-types
 const SmSliderCard = ({ title, Class, price, img }) => {
+  const { t } = useTranslation();
+
   return (
     <Box sx={{ position: "relative" }}>
       <img width={"100%"} src={img} alt="" />
@@ -22,7 +25,7 @@ const SmSliderCard = ({ title, Class, price, img }) => {
             fontSize: "18px",
           }}
         >
-          {title}
+          {t(title)}
         </Typography>
         <Typography
           variant="h6"
@@ -32,7 +35,7 @@ const SmSliderCard = ({ title, Class, price, img }) => {
             mt: 1,
           }}
         >
-          {Class}
+          {t(Class)}
         </Typography>
         <Typography
           variant="h6"
@@ -40,7 +43,7 @@ const SmSliderCard = ({ title, Class, price, img }) => {
             color: "#2B3445",
           }}
         >
-          {price}
+          {t(price)}
         </Typography>
 
         <Link
@@ -55,27 +58,32 @@ const SmSliderCard = ({ title, Class, price, img }) => {
               color: "#D23F57",
             },
             "&:hover:before": {
-              width: "90px",
+              width:
+                t("shop now") == "Achetez maintenant"
+                  ? "165px"
+                  : t("shop now") == "تسوق الآن"
+                  ? "70px"
+                  : "90px",
             },
             "&:hover .icon-arrow": {
-              animationPlayState: 'running',
+              animationPlayState: "running",
             },
           }}
           className="link-shop"
           href="#"
           underline="none"
         >
-          shop now
+          {t("shop now")}
           <ArrowForwardIcon
-            className='icon-arrow'
+            className="icon-arrow"
             sx={{
               fontSize: "13px",
               position: "relative",
               left: "-3px",
-              top: '1px',
+              top: "1px",
               transition: ".3s",
-              animation: 'ani-arow 1s ease-in-out infinite',
-              animationPlayState: 'paused',
+              animation: "ani-arow 1s ease-in-out infinite",
+              animationPlayState: "paused",
             }}
           />
         </Link>

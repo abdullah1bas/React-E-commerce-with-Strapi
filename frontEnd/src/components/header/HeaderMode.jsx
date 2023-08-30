@@ -1,7 +1,12 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import ListIconHeaderMode from "./headerC/ListIconHeaderMode";
+import { useTranslation } from 'react-i18next';
+
 
 const HeaderMode = () => {
+
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -25,7 +30,7 @@ const HeaderMode = () => {
             }}
             variant="body2"
           >
-            HOT
+          {t('HOT')}
           </Typography>
 
           <Typography
@@ -36,7 +41,7 @@ const HeaderMode = () => {
             }}
             variant="body2"
           >
-            Free Express Shipping
+            {t('Free Express Shipping')}
           </Typography>
 
           <Box flexGrow={1} />

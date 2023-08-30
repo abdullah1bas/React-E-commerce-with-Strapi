@@ -4,27 +4,27 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { useTranslation } from "react-i18next";
 
 // eslint-disable-next-line react/prop-types
 const Links = ({ title }) => {
+  const { t } = useTranslation();
   return (
     <Box
-      // className="border"
       sx={{
         ":hover .show-when-hover": { display: "block" },
         ":hover": { cursor: "pointer" },
-
         position: "relative",
         display: "flex",
         alignItems: "center",
       }}
     >
-      <Typography variant="body1">{title}</Typography>
+      <Typography variant="body1">{t(title)}</Typography>
 
       <ExpandMore sx={{ fontSize: "16px", ml: "4px" }} />
 
       <Box
-        className=" show-when-hover"
+        className="show-when-hover"
         sx={{
           position: "absolute",
           top: "100%",
@@ -35,7 +35,7 @@ const Links = ({ title }) => {
           zIndex: 2,
         }}
       >
-        <Paper sx={{ mt: 2 }} className=" ">
+        <Paper sx={{ mt: 2 }}>
           <nav aria-label="secondary mailbox folders">
             <List>
               {[
@@ -47,9 +47,11 @@ const Links = ({ title }) => {
                 return (
                   // eslint-disable-next-line react/jsx-key
                   <ListItem
+                    key={item.text}
                     disablePadding
                     sx={{
-                      ":hover .sub-link": item.text == "products" && {
+                      ":hover .sub-link": (t(item.text) == "products" ||
+                        "des produits") && {
                         display: "block",
                       },
                       position: "relative",
@@ -69,13 +71,11 @@ const Links = ({ title }) => {
                             fontWeight: 300,
                           },
                         }}
-                        primary={item.text}
+                        primary={t(item.text)}
                       />
                       <Box flexGrow={1} />
 
-                      {item.text == "products" && (
-                        <KeyboardArrowRightOutlined fontSize="small" />
-                      )}
+                      <KeyboardArrowRightOutlined fontSize="small" />
                     </ListItemButton>
 
                     <Box
@@ -85,19 +85,23 @@ const Links = ({ title }) => {
                         position: "absolute",
                         top: 0,
                         left:
-                          title == "Vendor Account" || title == "User Account"
+                          title == "Vendor Account" ||
+                          title == "User Account" ||
+                          title == "Compte d'utilisateur" ||
+                          title == "Compte fournisseur" ||
+                          title == "حساب البائع" ||
+                          title == "حساب المستخدم"
                             ? "-100%"
                             : "100%",
                       }}
                     >
-                      <Paper sx={{ ml: 1, mr: 2 ,minWidth: 150 }}>
+                      <Paper sx={{ ml: 1, mr: 2, minWidth: 150 }}>
                         <nav aria-label="secondary mailbox folders">
                           <List>
-                            {['Add Product', 'Edit Product']
-                            .map((item) => {
-                              return (
-                                <>
-                                  <ListItem disablePadding>
+                            {["Add Product", "Edit Product"].map(
+                              (itemProduct) => {
+                                return (
+                                  <ListItem key={itemProduct} disablePadding>
                                     <ListItemButton
                                       sx={{
                                         display: "flex",
@@ -112,22 +116,18 @@ const Links = ({ title }) => {
                                             fontWeight: 300,
                                           },
                                         }}
-                                        primary={item}
+                                        primary={t(itemProduct)}
                                       />
                                       <Box flexGrow={1} />
                                     </ListItemButton>
                                   </ListItem>
-                                </>
-                              )
-                            })}
-
-                            
-
+                                );
+                              }
+                            )}
                           </List>
                         </nav>
                       </Paper>
                     </Box>
-                    
                   </ListItem>
                 );
               })}

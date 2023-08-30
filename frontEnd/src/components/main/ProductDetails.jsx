@@ -31,7 +31,7 @@ const ProductDetails = ({ clickedProduct }) => {
       </Box>
 
       <Box sx={{ py: 2, textAlign: { xs: "center", sm: "left" } }}>
-        <Typography variant="h5">
+        <Typography variant="h5" sx={{ textTransform: "capitalize !important" }}>
           {clickedProduct.attributes.productTitle}
         </Typography>
         <Typography my={0.4} fontSize={"22px"} color={"crimson"} variant="h6">

@@ -3,13 +3,15 @@ import { Container, Stack, Typography, useMediaQuery } from "@mui/material";
 import SearchSelect from "./headerC/SearchSelect";
 import CartButtonIcon from "./headerC/CartButtonIcon";
 import AccountSettings from "./headerC/AccountSettings";
+import { useTranslation } from "react-i18next";
 
 const HeaderSearch = () => {
+  const { t } = useTranslation();
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
       <Stack alignItems={"center"}>
         <ShoppingCartOutlined />
-        <Typography variant="body2">E-commerce</Typography>
+        <Typography variant="body2">{t('E-commerce')}</Typography>
       </Stack>
 
       {useMediaQuery("(min-width:500px)") && <SearchSelect />}

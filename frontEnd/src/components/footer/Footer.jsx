@@ -1,6 +1,9 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
 
 const Footer = () => {
+  const {t} = useTranslation();
   const theme = useTheme();
   return (
     <Box
@@ -19,7 +22,7 @@ const Footer = () => {
         variant="h6"
         sx={{ fontSize: {xs:13, sm: 18} }}
       >
-        Designed and developed by
+        {t('Designed and developed by')}
         <Button
           sx={{
             mx: 0.5,

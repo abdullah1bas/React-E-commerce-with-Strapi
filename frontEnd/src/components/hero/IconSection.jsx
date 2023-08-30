@@ -11,6 +11,7 @@ import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 import AccessAlarmOutlinedIcon from "@mui/icons-material/AccessAlarmOutlined";
+import { useTranslation } from "react-i18next";
 
 const IconSection = () => {
   const theme = useTheme();
@@ -19,11 +20,6 @@ const IconSection = () => {
       sx={{ mt: 3, bgcolor: theme.palette.mode === "dark" ? "#000" : "#fff" }}
     >
       <Stack
-        // divider={
-        //   useMediaQuery("(min-width:600px)") ? (
-        //     <Divider orientation="vertical" flexItem />
-        //   ) : null
-        // }
         sx={{ flexWrap: "wrap" }}
         direction={"row"}
         alignItems={"center"}
@@ -79,6 +75,7 @@ export default IconSection;
 
 // eslint-disable-next-line react/prop-types
 const MyBox = ({ icon, title, subTitle }) => {
+    const {t} = useTranslation();
   const theme = useTheme();
   return (
     <Box
@@ -96,12 +93,12 @@ const MyBox = ({ icon, title, subTitle }) => {
       {icon}
 
       <Box>
-        <Typography variant="body1">{title}</Typography>
+        <Typography variant="body1">{t(title)}</Typography>
         <Typography
           sx={{ fontWeight: 300, color: theme.palette.text.secondary }}
           variant="body1"
         >
-          {subTitle}
+          {t(subTitle)}
         </Typography>
       </Box>
     </Box>

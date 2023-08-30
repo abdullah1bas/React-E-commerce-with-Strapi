@@ -8,15 +8,21 @@ import CardMedia from "@mui/material/CardMedia";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 // eslint-disable-next-line react/prop-types
 const MainProducts = ({ data, setClickedProduct, handleClickOpen }) => {
+  const {t} = useTranslation();
   const { selectedProductsID } = useSelector(
     // @ts-ignore
     (state) => state.cart
   );
   return (
-    <Stack direction={"row"} flexWrap={"wrap"} justifyContent={{xs: "center", sm: "space-between"}}>
+    <Stack
+      direction={"row"}
+      flexWrap={"wrap"}
+      justifyContent={{ xs: "center", sm: "space-between" }}
+    >
       {/* AnimatePresence da 3hsan lw 7bat delete 3nasr yfdl sh8al */}
       <AnimatePresence>
         {data.data.map((item) => {
@@ -55,7 +61,12 @@ const MainProducts = ({ data, setClickedProduct, handleClickOpen }) => {
                   justifyContent={"space-between"}
                   alignItems={"center"}
                 >
-                  <Typography gutterBottom variant="h6" component="div">
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                    sx={{ textTransform: "capitalize !important" }}
+                  >
                     {item.attributes.productTitle}
                   </Typography>
 
@@ -74,7 +85,7 @@ const MainProducts = ({ data, setClickedProduct, handleClickOpen }) => {
               </CardContent>
 
               <CardActions sx={{ justifyContent: "space-between" }}>
-                <Tooltip title='Details Product'>
+                <Tooltip title={t("Details Product")}>
                   <Button
                     onClick={() => {
                       handleClickOpen();
@@ -89,7 +100,7 @@ const MainProducts = ({ data, setClickedProduct, handleClickOpen }) => {
                         fontSize="small"
                       />
                     )}
-                    Show Details
+                    {t('Show Details')}
                   </Button>
                 </Tooltip>
                 <Rating

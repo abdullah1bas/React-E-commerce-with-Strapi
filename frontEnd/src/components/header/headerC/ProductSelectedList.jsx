@@ -18,6 +18,7 @@ import {
 } from "../../../redux/cartSlice";
 import Swal from "sweetalert2";
 import "./headerC.css";
+import { useTranslation } from "react-i18next";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -31,6 +32,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const ProductSelectedList = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const dispatch = useDispatch();
   // eslint-disable-next-line react/prop-types
@@ -156,13 +158,14 @@ const ProductSelectedList = () => {
                   size="medium"
                   onClick={() => {
                     Swal.fire({
-                      title: "Are you sure?",
-                      text: "You won't be able to revert this!",
+                      title: t("Are you sure?"),
+                      text: t("You won't be able to Delete this!"),
                       icon: "warning",
                       showCancelButton: true,
                       confirmButtonColor: "#3085d6",
                       cancelButtonColor: "#d33",
-                      confirmButtonText: "Yes, delete it!",
+                      confirmButtonText: t(`Yes, delete it!`),
+                      cancelButtonText: t("Cancel"),
                     }).then((result) => {
                       if (result.isConfirmed) {
                         dispatch(deleteProduct(item));

@@ -3,6 +3,7 @@
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const MainHeader = ({
   myDate,
@@ -13,6 +14,7 @@ const MainHeader = ({
   jeweleryCategoryAPI,
   electronicCategoryAPI,
 }) => {
+    const {t} = useTranslation();
   const theme = useTheme();
   return (
     <Stack
@@ -23,9 +25,9 @@ const MainHeader = ({
       gap={3}
     >
       <Box>
-        <Typography variant="h6">Selected Products</Typography>
+        <Typography variant="h6">{t('Selected Products')}</Typography>
         <Typography fontWeight={300} variant="body1">
-          All our new arrivals in a exclusive brand selection
+          {t('All our new arrivals in a exclusive brand selection')}
         </Typography>
       </Box>
 
@@ -73,18 +75,15 @@ const MainHeader = ({
                 color: theme.palette.text.primary,
                 border: `1px solid ${theme.palette.divider} !important`,
                 textTransform: "capitalize",
-                // fontSize: { xs: "10px", sm: "0.875rem" },
                 fontSize: "0.875rem" ,
                 px: {xs: '10px !important', sm: '11px !important'}
-                // '.css-1uqdoiu-MuiToggleButtonGroup-root .MuiToggleButtonGroup-grouped' :{
-                // },
               }}
               className="myButton"
               value={item.value}
               aria-label={item.aria}
             >
-              {useMediaQuery("(min-width:500px)") && item.name}
-              {useMediaQuery("(max-width:500px)") && item.name.split(' ')[0]}
+              {useMediaQuery("(min-width:500px)") && t(item.name)}
+              {useMediaQuery("(max-width:500px)") && t(item.name.split(' ')[0])}
             </ToggleButton>
           );
         })}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   IconButton,
   List,
@@ -10,13 +10,41 @@ import {
 } from "@mui/material";
 import { ExpandMore, Facebook, Instagram, Twitter } from "@mui/icons-material";
 import ModeIcon from "./ModeIcon";
-// import { useNavigate } from "react-router-dom";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-const options = ["AR", "EN"];
+const options=["EN", "FR", "AR", "CHI", "RUS"];
 
 const ListIconHeaderMode = () => {
+
+  const changeEN = () => {
+    i18n.changeLanguage("EN");
+    document.documentElement.lang = "en";
+    localStorage.setItem("langaugeSite", "EN");
+  };
+  const changeFR = () => {
+    i18n.changeLanguage("FR");
+    document.documentElement.lang = "fr";
+    localStorage.setItem("langaugeSite", "FR");
+  };
+  const changeAR = () => {
+    i18n.changeLanguage("AR");
+    document.documentElement.lang = "ar";
+    localStorage.setItem("langaugeSite", "AR");
+  };
+  const changeCHI = () => {
+    i18n.changeLanguage("CHI");
+    document.documentElement.lang = "zh";
+    localStorage.setItem("langaugeSite", "CHI");
+  };
+  const changeRU = () => {
+    i18n.changeLanguage("RUS");
+    document.documentElement.lang = "ru";
+    localStorage.setItem("langaugeSite", "RUS");
+  };
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const open = Boolean(anchorEl);
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,10 +58,21 @@ const ListIconHeaderMode = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('langaugeSite') != null) {
+      i18n
+      .use(initReactI18next)
+      .init({
+        fallbackLng: localStorage.getItem('langaugeSite'), 
+      })
+      document.documentElement.lang = localStorage.getItem('langaugeSite');
+      setSelectedIndex(options.indexOf(localStorage.getItem('langaugeSite')))
+    }
+  },[])
+
   return (
     <>
-    
       <ModeIcon />
 
       <List component="nav" aria-label="Device settings" sx={{ p: 0, m: 0 }}>
@@ -71,24 +110,35 @@ const ListIconHeaderMode = () => {
             sx={{ fontSize: "11px", p: "3px 10px", minHeight: "10px" }}
             key={option}
             selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index)}
+            onClick={(event) => {
+              handleMenuItemClick(event, index);
+              option == "AR"
+                ? changeAR()
+                : option == "FR"
+                ? changeFR()
+                : option == "RUS"
+                ? changeRU()
+                : option == "CHI"
+                ? changeCHI()
+                : changeEN();
+            }}
           >
             {option}
           </MenuItem>
         ))}
       </Menu>
 
-      <Tooltip title='Twitter'>
+      <Tooltip title="Twitter">
         <IconButton href="https://www.twitter.com/">
-            <Twitter
-              sx={{
-                fontSize: "16px",
-                color: "#fff",
-              }}
-            />
+          <Twitter
+            sx={{
+              fontSize: "16px",
+              color: "#fff",
+            }}
+          />
         </IconButton>
       </Tooltip>
-      <Tooltip title='Facebook'>
+      <Tooltip title="Facebook">
         <IconButton href="https://www.facebook.com/">
           <Facebook
             sx={{
@@ -98,7 +148,7 @@ const ListIconHeaderMode = () => {
           />
         </IconButton>
       </Tooltip>
-      <Tooltip title='Instagram'>
+      <Tooltip title="Instagram">
         <IconButton href="https://www.instagram.com/">
           <Instagram
             sx={{

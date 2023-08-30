@@ -1,7 +1,9 @@
 import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 // eslint-disable-next-line react/prop-types
 const SliderCard = ({text }) => {
+  const {t} = useTranslation();
   const theme = useTheme();
   return (
     <Box
@@ -24,7 +26,7 @@ const SliderCard = ({text }) => {
         }}
         variant="h5"
       >
-        LIFESTYLE COLLECTION
+        {t('LIFESTYLE COLLECTION')}
       </Typography>
 
       <Typography
@@ -46,10 +48,10 @@ const SliderCard = ({text }) => {
         alignItems={"center"}
       >
         <Typography color={"#333"} mr={1} variant="h4">
-          SALE UP TO
+          {t('SALE UP TO')}
         </Typography>
         <Typography color={"#D23F57"} variant="h4">
-          30% OFF
+          30% {t('OFF')}
         </Typography>
       </Stack>
 
@@ -61,7 +63,7 @@ const SliderCard = ({text }) => {
         }}
         variant="body1"
       >
-        Get Free Shipping on orders over $99.00
+        {t('Get Free Shipping on orders over')} $99.00
       </Typography>
 
       <Button
@@ -80,7 +82,7 @@ const SliderCard = ({text }) => {
         }}
         variant="contained"
       >
-        shop now
+        {t('shop now')}
       </Button>
     </Box>
   );

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import List from "@mui/material/List";
@@ -7,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { InputBase, styled, useTheme } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const Search = styled("div")(({ theme }) => ({
   flexGrow: 0.4,
@@ -50,9 +52,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const options = ["All Categories", "CAR", "Clothes", "Electronics"];
+const options = ["All Categories", "Men", "Women", "Electronics", "Jewelery"];
 
+// eslint-disable-next-line react/prop-types, no-unused-vars
 const SearchSelect = () => {
+  const { t, i18n } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const open = Boolean(anchorEl);
@@ -83,7 +87,7 @@ const SearchSelect = () => {
           <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-          placeholder="Search…"
+          placeholder={t("Search…")}
           inputProps={{ "aria-label": "search" }}
         />
 
@@ -97,6 +101,14 @@ const SearchSelect = () => {
               borderBottomRightRadius: 22,
               borderTopRightRadius: 22,
               p: "0",
+              width:
+                i18n.language || localStorage.getItem('langaugeSite') == "FR"
+                  ? 165
+                  : i18n.language || localStorage.getItem('langaugeSite') == "CHI"
+                  ? 190
+                  : i18n.language || localStorage.getItem('langaugeSite') == "RUS"
+                  ? 190
+                  : null,
             }}
           >
             <ListItem
@@ -108,13 +120,12 @@ const SearchSelect = () => {
               onClick={handleClickListItem}
             >
               <ListItemText
-                // className="border"
                 sx={{
                   width: 93,
                   textAlign: "center",
                   "&:hover": { cursor: "pointer" },
                 }}
-                secondary={options[selectedIndex]}
+                secondary={t(options[selectedIndex])}
               />
               <ExpandMore sx={{ fontSize: "16px" }} />
             </ListItem>
@@ -136,7 +147,7 @@ const SearchSelect = () => {
                 selected={index === selectedIndex}
                 onClick={(event) => handleMenuItemClick(event, index)}
               >
-                {option}
+                {t(option)}
               </MenuItem>
             ))}
           </Menu>

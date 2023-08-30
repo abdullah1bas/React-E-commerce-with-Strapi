@@ -8,7 +8,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-
+import './i18n';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

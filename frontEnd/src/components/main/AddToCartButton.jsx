@@ -9,6 +9,7 @@ import {
 } from "../../redux/cartSlice";
 import Swal from "sweetalert2";
 import "./Main.css";
+import { useTranslation } from "react-i18next";
 
 // eslint-disable-next-line no-unused-vars
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -16,6 +17,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const AddToCartButton = ({ clickedProduct }) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
 
   const { selectedProducts, selectedProductsID } = useSelector(
@@ -41,13 +43,14 @@ const AddToCartButton = ({ clickedProduct }) => {
             onClick={() => {
               productQuantity(clickedProduct) <= 1
                 ? Swal.fire({
-                    title: "Are you sure?",
-                    text: `You won't Delete ${clickedProduct.attributes.productTitle}!`,
+                    title: t("Are you sure?"),
+                    text: `${t('You won\'t Delete')} ${clickedProduct.attributes.productTitle}!`,
                     icon: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: `Yes, delete it!`,
+                    confirmButtonText: t(`Yes, delete it!`),
+                    cancelButtonText: t("Cancel"),
                   }).then((result) => {
                     if (result.isConfirmed) {
                       dispatch(decreaseQuantity(clickedProduct));
@@ -80,13 +83,14 @@ const AddToCartButton = ({ clickedProduct }) => {
           color="primary"
           onClick={() => {
             Swal.fire({
-              title: "Are you sure?",
-              text: "You won't be able to Buy this!",
+              title: t("Are you sure?"),
+              text: t("You won't be able to Buy this!"),
               icon: "warning",
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
               cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, Buy it!",
+              confirmButtonText: t("Yes, Buy it!"),
+              cancelButtonText: t("Cancel"),
             }).then((result) => {
               if (result.isConfirmed) {
                 dispatch(addToCart(clickedProduct));
@@ -94,7 +98,7 @@ const AddToCartButton = ({ clickedProduct }) => {
             });
           }}
         >
-          <ShoppingCart sx={{ fontSize: "18px", mr: 1 }} /> Add to cart
+          <ShoppingCart sx={{ fontSize: "18px", mr: 1 }} /> {t('Add to cart')}
         </Button>
       )}
     </>
