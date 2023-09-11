@@ -45,6 +45,7 @@ function App() {
         >
           <CssBaseline />
           <Stack direction={"column"}>
+          <div id="google_translate_element"></div>
             <HeaderMode />
             <HeaderSearch
               {...{
